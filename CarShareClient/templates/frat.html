@@ -1,0 +1,33 @@
+{% include 'top.html' %}
+<div class="content">
+    <div class="container">
+        <h1 class="title">FRAT Analysis</h1>
+        <table class="styled" id="booking_list_table">
+        <thead>
+            <tr>
+                <th>Frequency</th>
+                <th>Recency</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        {% if bookings %}
+        <tbody>
+            {% for item in bookings %}
+            <tr>
+                <td>{{ item[0] }}</a></td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td>{{ item[3] }}h</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        {% else %}
+        </table>
+        <h1 class="t-cent">FRAT values not loaded</h1>
+        {% endif %}
+    </div>
+</div>
+{% include 'bottom.html' %}

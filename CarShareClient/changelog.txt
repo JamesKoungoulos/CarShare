@@ -1,0 +1,46 @@
+--------------------CODEBASE CHANGES--------------------
+database.py
++ added commented-in dictionary for different error codes
++ implemented all of the functions  ( ͡° ͜ʖ ͡°) 
++ altered return value of make_booking so that more granular failure messages can be delivered to the front end
+
+routes.py
++ manually assigned email from returned list in login() so that nicknames may be used instead (i.e. user_details['email'] = val[9])
++ added check in login() for null homebay columns, entering default string 'Add a homebay' if so
++ added catch for the 'Add a homebay' value mentioned earlier in list_bays() in order to just load the bay list normally when given by index
++ added functionality for when a search returns no bays in list_bays() - now has special flash message 'No results found' and filler list entry with the same message
++ updated session value for homebay in homebay() after successful update
++ incremented session value for bookings made after successfull booking in new_booking()
++ altered control structure for return value delivered in new_booking() so that different success/failure/error messages may be shown 
+
+bay_list.html
++ altered the hotlink to each bay in the list so that it doesn't escape any '&' characters in the bay names
+
+bay_detail
++ added a column for each car listed to display immediate availability 
+
+booking_detail.html
++ added a field displaying base estimates for the booking in question
+
+bookings_list.html
++ changed 'Time' column to 'Duration' to better reflect its nature
+
+car_detail.html
++ added field for displaying current available hours for today, for the car in question
+
+login.html
++ changed placehold text for username field to "Enter your Email or Nickname" to better reflect its functionality
+
+new_booking.html
++ changed list for duration to remove the option of selecting 0 hours
+
+--------------------SCHEMA CHANGES--------------------
+
++ added column in CarBay table to record the number of cars parked as an optimisation over intensive querying every time list_bays() is called
++ added trigger and trigger function to refresh this count whenever a new car is added to Car
++ added DML for generating these values for the first time
++ added function for checking if a member already has an overlapping booking for a given timeslot
++ added function for checking if a car already has an overlapping booking for a given timeslot
++ added function for checking if a car is booked at the time of transaction
++ added function for checking if the timestamp given is in the future
++ added function for checking if a car is free for a given hour on a given day
